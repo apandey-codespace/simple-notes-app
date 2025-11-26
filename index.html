@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playful Notes App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Indie+Flower&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p class="loading-text">Loading your notes...</p>
+    </div>
+
+    <!-- Theme Selection Screen -->
+    <div id="theme-screen">
+        <div class="logo">NOTES APP</div>
+        <h1 class="title">Choose Your Style</h1>
+        <p class="subtitle">Pop or subtle. Day or night. Customize your interface</p>
+
+        <div class="theme-options">
+            <div class="theme-card" id="light-theme">
+                <div class="theme-icon light-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Light Mode</div>
+                    <div class="theme-desc">Clean, bright and energy efficient</div>
+                </div>
+                <div class="theme-indicator">
+                    <i class="far fa-circle"></i>
+                </div>
+            </div>
+
+            <div class="theme-card" id="dark-theme">
+                <div class="theme-icon dark-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Dark Mode</div>
+                    <div class="theme-desc">Easy on eyes, perfect for night</div>
+                </div>
+                <div class="theme-indicator">
+                    <i class="far fa-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="skip-btn" id="skip-btn">
+                <span class="long-text">Skip for now</span>
+                <span class="short-text">Skip</span>
+            </button>
+            <button class="confirm-btn" id="confirm-btn">Continue</button>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-screen">
+        <div class="header">
+            <h1 class="app-title">Playful Notes</h1>
+            <div class="header-actions">
+                <button class="action-btn" id="all-notes-btn">
+                    <i class="fas fa-list"></i> All Notes
+                </button>
+                <button class="action-btn" id="about-btn">
+                    <i class="fas fa-info-circle"></i> About
+                </button>
+            </div>
+        </div>
+
+        <div class="welcome-section">
+            <h2 class="welcome-title">Welcome to Playful Notes!</h2>
+            <p class="welcome-text">A fun and colorful app to capture your thoughts, ideas, and reminders. Start
+                creating your first note by clicking the + button below.</p>
+        </div>
+
+        <div class="notes-section">
+            <h2 class="section-title">
+                Recent Notes
+                <button class="view-all-btn" id="view-all-btn">
+                    View All <i class="fas fa-arrow-right"></i>
+                </button>
+            </h2>
+            <div class="notes-grid" id="recent-notes">
+                <!-- Recent notes will be populated here -->
+            </div>
+        </div>
+
+        <button class="add-note-btn" id="add-note-btn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- All Notes Page -->
+    <div id="all-notes-screen">
+        <div class="page-header">
+            <button class="back-btn" id="all-notes-back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 class="page-title">All Notes</h2>
+            <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+        </div>
+
+        <div class="notes-grid" id="all-notes-list">
+            <!-- All notes will be populated here -->
+        </div>
+    </div>
+
+    <!-- Note Preview Page -->
+    <div id="note-preview-screen">
+        <div class="note-preview-header">
+            <button class="back-btn" id="preview-back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="note-actions">
+                <button class="note-action-btn" id="edit-note-btn">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="note-action-btn delete-btn" id="delete-note-btn">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+
+        <div class="note-preview-content">
+            <h1 class="note-preview-topic" id="preview-note-topic">Note Topic</h1>
+            <div class="note-preview-description" id="preview-note-description">Note description goes here...</div>
+            <div class="note-preview-date" id="preview-note-date">Created on: -- --- ----</div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Note Page -->
+    <div id="edit-note-screen">
+        <div class="page-header">
+            <button class="back-btn" id="edit-back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 class="page-title" id="edit-screen-title">Add New Note</h2>
+            <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+        </div>
+
+        <div class="note-form">
+            <div class="form-group">
+                <label class="form-label" for="note-topic-input">Topic</label>
+                <input type="text" class="note-input note-topic-input" id="note-topic-input"
+                    placeholder="Enter note topic">
+            </div>
+
+            <div class="form-group" style="flex-grow: 1; display: flex; flex-direction: column;">
+                <label class="form-label" for="note-description-input">Description</label>
+                <textarea class="note-input note-description-input" id="note-description-input"
+                    placeholder="Write your note description here..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button class="cancel-btn" id="cancel-edit-btn">Cancel</button>
+                <button class="save-btn" id="save-note-btn">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about-screen">
+        <div class="page-header">
+            <button class="back-btn" id="about-back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 class="page-title">About</h2>
+            <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+        </div>
+
+        <div class="about-content">
+            <div class="app-logo">PLAYFUL NOTES</div>
+            <div class="app-version">Version 1.0.0</div>
+
+            <div class="app-description">
+                A fun and colorful notes application with playful fonts and theme support. Capture your thoughts, ideas,
+                and reminders in a joyful, user-friendly interface.
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>Light and Dark theme options</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>Create, edit, and delete notes</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>View all notes or just recent ones</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>Playful fonts and colorful interface</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>Responsive design for all devices</span>
+                </div>
+            </div>
+
+            <div class="theme-info-card">
+                <div class="theme-info-title">Current Theme</div>
+                <div class="theme-info-desc" id="about-theme-display">Light Mode</div>
+                <button class="change-theme-btn" id="about-change-theme-btn">Change Theme</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="confirmation-dialog" id="confirmation-dialog">
+        <div class="dialog-content">
+            <h3 class="dialog-title">Delete Note</h3>
+            <p class="dialog-message">Are you sure you want to delete this note? This action cannot be undone.</p>
+            <div class="dialog-actions">
+                <button class="dialog-btn dialog-cancel" id="dialog-cancel">Cancel</button>
+                <button class="dialog-btn dialog-confirm" id="dialog-confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
