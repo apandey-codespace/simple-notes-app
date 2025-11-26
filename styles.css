@@ -1,0 +1,1009 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Neue', cursive;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+:root {
+    --primary-bg: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --text-color: #2d3436;
+    --accent-color: #636e72;
+    --button-bg: #e9ecef;
+    --button-hover: #dee2e6;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --primary-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    --primary-color: #6c5ce7;
+    --primary-light: #a29bfe;
+    --danger-color: #ff7675;
+    --success-color: #00b894;
+}
+
+.dark-theme {
+    --primary-bg: #121212;
+    --secondary-bg: #1e1e1e;
+    --text-color: #e9ecef;
+    --accent-color: #adb5bd;
+    --button-bg: #2d3436;
+    --button-hover: #37474f;
+    --border-color: #424242;
+    --card-bg: #1e1e1e;
+    --primary-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1.2s ease-in-out infinite;
+    margin-bottom: 24px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--accent-color);
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* Theme Selection Screen */
+#theme-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 36px;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Indie Flower', cursive;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--accent-color);
+    margin-bottom: 36px;
+    max-width: 320px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.theme-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 36px;
+}
+
+.theme-card {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.theme-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    font-size: 22px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.light-icon {
+    background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+    color: #2d3436;
+}
+
+.dark-icon {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+    color: #f5f5f5;
+}
+
+.theme-info {
+    text-align: left;
+    flex: 1;
+}
+
+.theme-name {
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 4px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.theme-desc {
+    font-size: 13px;
+    color: var(--accent-color);
+    font-family: 'Comic Neue', cursive;
+}
+
+.theme-indicator {
+    color: var(--accent-color);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+}
+
+.selected .theme-indicator {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.skip-btn {
+    background: none;
+    border: 2px solid var(--border-color);
+    color: var(--accent-color);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 50px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    flex: 1;
+    font-family: 'Comic Neue', cursive;
+}
+
+.skip-btn:hover {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 50px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+    flex: 1;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(108, 92, 231, 0.4);
+}
+
+/* Home Page */
+#home-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.app-title {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Indie Flower', cursive;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    background: var(--button-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.action-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--primary-shadow);
+}
+
+.welcome-section {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+}
+
+.welcome-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.welcome-text {
+    font-size: 16px;
+    color: var(--accent-color);
+    line-height: 1.7;
+    font-family: 'Comic Neue', cursive;
+}
+
+.notes-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.view-all-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-family: 'Comic Neue', cursive;
+}
+
+.view-all-btn:hover {
+    background-color: var(--button-bg);
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .notes-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .notes-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.note-card {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+.note-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+}
+
+.note-topic {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--primary-color);
+    font-family: 'Patrick Hand', cursive;
+}
+
+.note-description {
+    color: var(--text-color);
+    font-size: 14px;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-family: 'Comic Neue', cursive;
+}
+
+.note-date {
+    font-size: 12px;
+    color: var(--accent-color);
+    margin-top: auto;
+    font-family: 'Comic Neue', cursive;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--accent-color);
+    grid-column: 1 / -1;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: var(--border-color);
+}
+
+.add-note-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.add-note-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(108, 92, 231, 0.4);
+}
+
+/* All Notes Page */
+#all-notes-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.back-btn {
+    background: var(--button-bg);
+    border: none;
+    color: var(--text-color);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+/* Note Preview Page */
+#note-preview-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.note-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.note-action-btn {
+    background: var(--button-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.note-action-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.delete-btn:hover {
+    background-color: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
+}
+
+.note-preview-content {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+    flex-grow: 1;
+}
+
+.note-preview-topic {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--primary-color);
+    font-family: 'Patrick Hand', cursive;
+}
+
+.note-preview-description {
+    font-size: 16px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    margin-bottom: 30px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.note-preview-date {
+    font-size: 14px;
+    color: var(--accent-color);
+    text-align: right;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-family: 'Comic Neue', cursive;
+}
+
+/* Add/Edit Note Page */
+#edit-note-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.note-form {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.note-input {
+    background: var(--primary-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 16px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-family: 'Comic Neue', cursive;
+}
+
+.note-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.note-topic-input {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.note-description-input {
+    min-height: 200px;
+    resize: vertical;
+    line-height: 1.7;
+    font-family: inherit;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    background: var(--button-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-family: 'Comic Neue', cursive;
+}
+
+.cancel-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+    font-family: 'Patrick Hand', cursive;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(108, 92, 231, 0.4);
+}
+
+/* About Page */
+#about-screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.about-content {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.app-logo {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+}
+
+.app-version {
+    font-size: 16px;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    text-align: center;
+    font-family: 'Comic Neue', cursive;
+}
+
+.app-description {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    text-align: left;
+    font-family: 'Comic Neue', cursive;
+}
+
+.feature-list {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+}
+
+.theme-info-card {
+    background-color: var(--secondary-bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--primary-shadow);
+}
+
+.theme-info-title {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.theme-info-desc {
+    font-size: 14px;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Comic Neue', cursive;
+}
+
+.change-theme-btn {
+    background: var(--button-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Comic Neue', cursive;
+}
+
+.change-theme-btn:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+/* Confirmation Dialog */
+.confirmation-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: var(--hover-shadow);
+    text-align: center;
+}
+
+.dialog-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.dialog-message {
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.dialog-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Comic Neue', cursive;
+}
+
+.dialog-cancel {
+    background: var(--button-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.dialog-cancel:hover {
+    background-color: var(--button-hover);
+}
+
+.dialog-confirm {
+    background: linear-gradient(135deg, var(--danger-color), #fd79a8);
+    color: white;
+    border: none;
+}
+
+.dialog-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 118, 117, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .theme-card {
+        padding: 16px;
+    }
+
+    .theme-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        margin-right: 14px;
+    }
+
+    .logo {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .theme-name {
+        font-size: 16px;
+    }
+
+    .theme-desc {
+        font-size: 12px;
+    }
+
+    .skip-btn,
+    .confirm-btn {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .skip-btn span.long-text {
+        display: none;
+    }
+
+    .skip-btn span.short-text {
+        display: inline;
+    }
+
+    .app-title {
+        font-size: 24px;
+    }
+
+    .action-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .note-preview-topic {
+        font-size: 24px;
+    }
+
+    .note-topic-input {
+        font-size: 18px;
+    }
+
+    .page-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .note-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (min-width: 481px) {
+    .skip-btn span.short-text {
+        display: none;
+    }
+
+    .skip-btn span.long-text {
+        display: inline;
+    }
+}
